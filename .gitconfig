@@ -1,0 +1,44 @@
+[core]
+  editor = gvim -f
+  whitespace = trailing-space,space-before-tab
+
+[apply]
+  whitespace = fix
+
+[color]
+  ui = true ;doesnt work for some reason ...
+  interactive = true
+  status = true
+  branch = true
+  diff = true
+
+[alias]
+  ci = commit
+  ca = commit -av
+  co = checkout
+  br = branch
+  ls = branch
+  s  = status
+  a  = add
+  b  = branch
+  d  = diff
+  dc = diff --cached
+  v  = show
+  l  = log --pretty=oneline
+  ll = log
+  cp = cherry-pick
+  cc = commit
+  ri = rebase -i HEAD~10
+  sh = !git-sh
+  ro = !git fetch origin && git reset --hard origin/master
+  gl = log --oneline --decorate --stat --graph
+  st = status -sb
+  grab = !git-grab
+  cb = !git-cut-branch
+
+[user]
+  email = tanoku@gmail.com
+  name = Vicent Marti
+
+[credential]
+	helper = cache --timeout=9999999
