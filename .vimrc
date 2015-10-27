@@ -12,6 +12,7 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
 Plug 'kchmck/vim-coffee-script'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 set guioptions=gmtr
