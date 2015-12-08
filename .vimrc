@@ -34,9 +34,6 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_persistent_input = 0
 let g:ctrlp_match_window_reversed = 0
 
-let g:ackpreview = 1
-let g:ackprg = "ag --vimgrep"
-
 nnoremap <Leader>t :CtrlP<cr>
 nnoremap <Leader>e :CtrlPBuffer<cr>
 
@@ -45,6 +42,8 @@ colorscheme jellybeans
 
 autocmd FileType sh,python,markdown setlocal expandtab autoindent
 autocmd FileType html,ruby,javascript,coffee,lua setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2 
+
+autocmd QuickFixCmdPost *grep* cwindow
 
 set tabstop=4
 set shiftwidth=4

@@ -12,6 +12,10 @@
 	branch = true
 	diff = true
 
+[grep]
+	extendRegexp = true
+	lineNumber = true
+
 [alias]
 	ci = commit
 	ca = commit -av
@@ -36,6 +40,7 @@
 	st = status -sb
 	grab = !git-grab
 	cb = !git-cut-branch
+	g  = grep --break --heading --line-number
 
 [user]
 	email = tanoku@gmail.com
