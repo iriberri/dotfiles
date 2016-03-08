@@ -95,12 +95,14 @@ fi
 # --------------------------------------------------------------------
 
 alias make='make -j4'
+alias gvim='gvim --sync'
 
 PREFIX="${PREFIX:-/usr/local}"
 
 if [[ -d $PREFIX/share/chruby/ ]]; then
 	source $PREFIX/share/chruby/chruby.sh
 	source $PREFIX/share/chruby/auto.sh
+	chruby 2.1.8
 fi
 
 if ! shopt -oq posix; then
@@ -111,5 +113,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
+if [[ -d $HOME/.nodenv/ ]]; then
+	export PATH="$HOME/.nodenv/bin:$PATH"
+	eval "$(nodenv init -)"
+fi
+
+if [[ -d $PREFIX/go/ ]]; then
+    export PATH="/usr/local/go/bin:$PATH"
+    export GOPATH="$HOME/src/gopath"
+fi
+
+if [ "$TERM" = "xterm" ]; then
+  export TERM=xterm-256color
+fi
+alias tmux='tmux -2'  # for 256color
+alias tmux='tmux -u'  # to get rid of unicode rendering problem

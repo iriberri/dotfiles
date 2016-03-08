@@ -2,11 +2,11 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
+Plug 'morhetz/gruvbox'
 
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
-Plug 'bling/vim-airline'
 
 Plug 'justinmk/vim-syntax-extra'
 Plug 'tpope/vim-markdown'
@@ -38,7 +38,8 @@ nnoremap <Leader>t :CtrlP<cr>
 nnoremap <Leader>e :CtrlPBuffer<cr>
 
 set t_Co=256
-colorscheme jellybeans
+colorscheme gruvbox
+set guifont=Fira\ Mono\ 10
 
 autocmd FileType sh,python,markdown setlocal expandtab autoindent
 autocmd FileType html,ruby,javascript,coffee,lua setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2 
