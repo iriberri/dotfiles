@@ -94,8 +94,11 @@ fi
 # MISC COMMANDS
 # --------------------------------------------------------------------
 
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 alias make='make -j4'
 alias gvim='gvim --sync'
+alias vim='nvim'
 
 PREFIX="${PREFIX:-/usr/local}"
 
@@ -126,5 +129,3 @@ fi
 if [ -n "$DISPLAY" ]; then
     xset -b
 fi
-
-. $HOME/.dotfiles/termcolor.sh
