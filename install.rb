@@ -8,10 +8,9 @@ overwrite_all = false
 
 Dir.foreach(DOTFILES) do |file|
   next if ['.', '..', '.git', 'install.rb'].include? file
+  next unless file.start_with? '.'
 
   overwrite = false
-  backup = false
-
   source = File.join(DOTFILES, file)
   target = File.join(HOME, file)
 

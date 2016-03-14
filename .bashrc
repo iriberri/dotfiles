@@ -1,5 +1,3 @@
-export TMP=/tmp
-
 function setps1 {
   # Some shorthands for setting colours
   local bl='\[\033[30m\]'
@@ -74,40 +72,6 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# ----------------------------------------------------------------------
-# LS AND DIRCOLORS
-# ----------------------------------------------------------------------
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto -F'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# --------------------------------------------------------------------
-# MISC COMMANDS
-# --------------------------------------------------------------------
-
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-alias make='make -j4'
-alias gvim='gvim --sync'
-alias vim='nvim'
-
-PREFIX="${PREFIX:-/usr/local}"
-
-if [[ -d $PREFIX/share/chruby/ ]]; then
-	source $PREFIX/share/chruby/chruby.sh
-	source $PREFIX/share/chruby/auto.sh
-	chruby 2.1.8
-fi
-
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -116,16 +80,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [[ -d $HOME/.nodenv/ ]]; then
-	export PATH="$HOME/.nodenv/bin:$PATH"
-	eval "$(nodenv init -)"
-fi
-
-if [[ -d $PREFIX/go/ ]]; then
-    export GOPATH="$HOME/src/gopath"
-    export PATH="$GOPATH/bin:$PREFIX/go/bin:$PATH"
-fi
-
-if [ -n "$DISPLAY" ]; then
-    xset -b
-fi
+# load our environment
+source $HOME/.dotfiles/env.sh

@@ -1,28 +1,9 @@
 #!/bin/zsh
 
 ################################################
-# Checks
-
-if [[ $(uname) = 'Linux' ]]; then
-    IS_LINUX=1
-fi
-
-if [[ $(uname) = 'Darwin' ]]; then
-    IS_MAC=1
-fi
-
-if [[ -x `which brew` ]]; then
-    HAS_BREW=1
-fi
-
-if [[ -x `which apt-get` ]]; then
-    HAS_APT=1
-fi
-
-################################################
 # Colors
 
-autoload colors; colors
+autoload -U colors && colors
 
 # The variables are wrapped in %{%}. This should be the case for every
 # variable that does not contain space.
@@ -39,10 +20,8 @@ export PR_BOLD_WHITE PR_BOLD_BLACK
 # Clear LSCOLORS
 unset LSCOLORS
 
-if [[ $IS_MAC -eq 1 ]]; then
-    export CLICOLOR=1
-    export LSCOLORS=exfxcxdxbxegedabagacad
-fi
+export CLICOLOR=1
+export LSCOLORS=exfxcxdxbxegedabagacad
 
 ################################################
 # Options
@@ -93,25 +72,9 @@ setopt multios # perform implicit tees or cats when multiple redirections are at
 ################################################
 # Prompt
 
-function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo  $fg[black]':'$fg[default]'±'$fg[black]';'$fg[default] && return
-    hg root >/dev/null 2>/dev/null && echo $fg[black]':'$fg[default]'☿'$fg[black]';'$fg[default] && return
-    echo $fg[black]':'$fg[default]'○'$fg[black]';'$fg[default]
-}
-
-# http://blog.joshdick.net/2012/12/30/my_git_prompt_for_zsh.html
-# copied from https://gist.github.com/4415470
-# Adapted from code found at <https://gist.github.com/1712320>.
-
-#setopt promptsubst
-autoload -U colors && colors # Enable colors in prompt
-
 # Modify the colors and symbols in these variables as desired.
-GIT_PROMPT_SYMBOL="%{$fg[blue]%}±"
 GIT_PROMPT_PREFIX="%{$fg[green]%} [%{$reset_color%}"
 GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
-GIT_PROMPT_AHEAD="%{$fg[red]%}ANUM%{$reset_color%}"
-GIT_PROMPT_BEHIND="%{$fg[cyan]%}BNUM%{$reset_color%}"
 GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}⚡︎%{$reset_color%}"
 GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}u%{$reset_color%}"
 GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}d%{$reset_color%}"
@@ -124,21 +87,10 @@ function parse_git_branch() {
 
 # Show different symbols as appropriate for various Git repository states
 function parse_git_state() {
-
   # Compose this value via multiple conditional appends.
   local GIT_STATE=""
-
-  #local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-  #if [ "$NUM_AHEAD" -gt 0 ]; then
-  #  GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
-  #fi
-
-  #local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-  #if [ "$NUM_BEHIND" -gt 0 ]; then
-  #  GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
-  #fi
-
   local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
+
   if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
     GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
   fi
@@ -161,7 +113,7 @@ function parse_git_state() {
 }
 
 # If inside a Git repository, print its branch and state
-function git_prompt_string() {
+function git_prompt_info() {
   local git_where="$(parse_git_branch)"
   [ -n "$git_where" ] && echo " %{$fg[blue]%}${git_where#(refs/heads/|tags/)}%{$reset_color%}$(parse_git_state)"
 }
@@ -170,10 +122,12 @@ function current_pwd {
   echo $(pwd | sed -e "s,^$HOME,~,")
 }
 
-# PROMPT='[${PR_GREEN}%n%{$reset_color%}%{$FG[239]%}@%{$reset_color%}${PR_BLUE}$(hostname -s)%{$reset_color%}] ${PR_BOLD_YELLOW}$(current_pwd)%{$reset_color%}$(git_prompt_string) $ '
+function return_code {
+  echo "%(?..%{$fg[red]%}%?%{$reset_color%})"
+}
 
-PROMPT='${PR_BOLD_RED}$(current_pwd)%{$reset_color%}$(git_prompt_string) ${PR_BOLD_YELLOW}$%{$reset_color%} '
-
+PROMPT='${PR_BOLD_RED}$(current_pwd)%{$reset_color%}$(git_prompt_info) ${PR_BOLD_YELLOW}$%{$reset_color%} '
+RPROMPT='$(return_code) [%D{%L:%M:%S %p}]'
 
 ################################################
 # Completion
