@@ -38,6 +38,7 @@ nnoremap <Leader>t :CtrlP<cr>
 nnoremap <Leader>e :CtrlPBuffer<cr>
 
 set t_Co=256
+set background=dark
 colorscheme gruvbox
 set guifont=Fira\ Mono\ 10
 

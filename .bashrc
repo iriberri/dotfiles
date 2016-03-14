@@ -123,12 +123,8 @@ if [[ -d $PREFIX/go/ ]]; then
     export PATH="$GOPATH/bin:$PREFIX/go/bin:$PATH"
 fi
 
-if [ "$TERM" = "xterm" ]; then
-  export TERM=xterm-256color
-fi
-alias tmux='tmux -2'  # for 256color
-alias tmux='tmux -u'  # to get rid of unicode rendering problem
-
 if [ -n "$DISPLAY" ]; then
     xset -b
 fi
+
+. $HOME/.dotfiles/termcolor.sh
