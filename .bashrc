@@ -1,4 +1,4 @@
-export TMP=$TMPDIR
+export TMP=/tmp
 
 function setps1 {
   # Some shorthands for setting colours
@@ -119,8 +119,8 @@ if [[ -d $HOME/.nodenv/ ]]; then
 fi
 
 if [[ -d $PREFIX/go/ ]]; then
-    export PATH="/usr/local/go/bin:$PATH"
     export GOPATH="$HOME/src/gopath"
+    export PATH="$GOPATH/bin:$PREFIX/go/bin:$PATH"
 fi
 
 if [ "$TERM" = "xterm" ]; then
@@ -128,3 +128,7 @@ if [ "$TERM" = "xterm" ]; then
 fi
 alias tmux='tmux -2'  # for 256color
 alias tmux='tmux -u'  # to get rid of unicode rendering problem
+
+if [ -n "$DISPLAY" ]; then
+    xset -b
+fi
