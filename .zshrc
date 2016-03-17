@@ -126,8 +126,16 @@ function return_code {
   echo "%(?..%{$fg[red]%}%?%{$reset_color%})"
 }
 
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $(return_code) [%D{%L:%M:%S %p}]"
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
 PROMPT='${PR_BOLD_RED}$(current_pwd)%{$reset_color%}$(git_prompt_info) ${PR_BOLD_YELLOW}$%{$reset_color%} '
-RPROMPT='$(return_code) [%D{%L:%M:%S %p}]'
 
 ################################################
 # Completion
@@ -204,3 +212,7 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
+
+
+bindkey -v
+export KEYTIMEOUT=1
