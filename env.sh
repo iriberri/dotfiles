@@ -1,5 +1,6 @@
 export TMP=/tmp
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 alias ls='ls --color=auto -F'
 alias make='make -j4'
