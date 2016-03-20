@@ -22,9 +22,9 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.DS_Store,*.db
 set nobackup
 set noswapfile
 
-map ,v :sp ~/.vimrc<cr> " edit my .vimrc file in a split
-map ,e :e ~/.vimrc<cr>      " edit my .vimrc file
-map ,u :source ~/.vimrc<cr> " update the system settings from my vimrc file
+map ,v :sp ~/.vim/vimrc<cr> " edit my .vimrc file in a split
+map ,e :e ~/.vim/vimrc<cr>      " edit my .vimrc file
+map ,u :source ~/.vim/vimrc<cr> " update the system settings from my vimrc file
 
 nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
 
@@ -44,6 +44,7 @@ au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>gi <Plug>(go-info)
 au FileType go nmap <Leader>gr <Plug>(go-rename)
 au FileType go nmap <Leader>gg <Plug>(go-def)
+au FileType go nnoremap <Leader>y :GoDecls<cr>
 
 set t_Co=256
 set background=dark
