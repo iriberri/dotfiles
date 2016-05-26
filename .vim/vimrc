@@ -50,6 +50,9 @@ au FileType go nnoremap <Leader>y :GoDecls<cr>
 
 set t_Co=256
 set background=dark
+if has('nvim')
+	set termguicolors
+end
 colorscheme gruvbox
 set guifont=Fira\ Mono\ 10
 
