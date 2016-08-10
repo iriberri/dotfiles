@@ -1,17 +1,17 @@
 export TMP=/tmp
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export TERM=xterm-256color
 
 alias ls='ls --color=auto -F'
 alias make='make -j4'
 alias gvim='gvim --sync'
-alias vim='nvim'
 
 PREFIX="${PREFIX:-/usr/local}"
 
 if [[ -d $PREFIX/share/chruby/ ]]; then
 	source $PREFIX/share/chruby/chruby.sh
 	source $PREFIX/share/chruby/auto.sh
-	chruby 2.1.8
+	chruby 2.3.1
 fi
 
 if [[ -d $HOME/.nodenv/ ]]; then
