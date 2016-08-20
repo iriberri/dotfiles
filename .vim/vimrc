@@ -53,7 +53,7 @@ if has('nvim')
 	set termguicolors
 end
 colorscheme base16-google-light
-set guifont=Consolas\ 10
+set guifont=Fira\ Mono\ 10
 
 autocmd FileType sh,python,markdown setlocal expandtab autoindent
 autocmd FileType html,ruby,javascript,coffee,lua setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2
