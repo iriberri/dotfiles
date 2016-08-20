@@ -40,3 +40,9 @@ fi
 if command_exists exa; then
     alias ls='exa -l'
 fi
+
+if command_exists fzf; then
+    export FZF_TMUX=0
+    [[ $- == *i* ]] && source "$HOME/.dotfiles/fzf/completion.bash" 2> /dev/null
+    source "$HOME/.dotfiles/fzf/key-bindings.bash"
+fi
