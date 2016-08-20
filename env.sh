@@ -2,7 +2,7 @@ export TMP=/tmp
 export TERM=xterm-256color
 export PATH="$HOME/.dotfiles/bin:$PATH"
 
-alias ls='ls --color=auto -F'
+alias ls='ls --color -Flh'
 alias make='make -j4'
 alias gvim='gvim --sync'
 
@@ -35,10 +35,6 @@ fi
 if command_exists most; then
     export MANPAGER="$(which most)"
     alias less='most'
-fi
-
-if command_exists exa; then
-    alias ls='exa -l'
 fi
 
 if command_exists fzf; then
