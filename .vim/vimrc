@@ -7,7 +7,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'ciaranm/detectindent'
-Plug 'mileszs/ack.vim'
 
 Plug 'justinmk/vim-syntax-extra'
 Plug 'tpope/vim-markdown'
@@ -59,14 +58,8 @@ set guifont=Consolas\ 10
 autocmd FileType sh,python,markdown setlocal expandtab autoindent
 autocmd FileType html,ruby,javascript,coffee,lua setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack<Space>
-let g:ack_autoclose = 1
-"let g:ackpreview = 1
+nnoremap <Leader>g :Ggrep!<Space>
+autocmd QuickFixCmdPost *grep* cwindow
 
 set tabstop=4
 set shiftwidth=4
