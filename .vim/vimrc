@@ -3,7 +3,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'ciaranm/detectindent'
@@ -29,14 +29,9 @@ map ,u :source ~/.vim/vimrc<cr> " update the system settings from my vimrc file
 
 nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
 
-let g:ctrlp_lazy_update = 150
-let g:ctrlp_split_window = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_persistent_input = 0
-let g:ctrlp_match_window_reversed = 0
-
-nnoremap <Leader>t :CtrlP<cr>
-nnoremap <Leader>e :CtrlPBuffer<cr>
+nnoremap <Leader>t :GFiles<cr>
+nnoremap <Leader>e :Buffers<cr>
+"let g:fzf_launcher = 'xterm -e bash -ic %s'
 
 let g:go_def_mapping_enabled = 1
 
@@ -52,7 +47,7 @@ set background=dark
 if has('nvim')
 	set termguicolors
 end
-colorscheme base16-google-light
+colorscheme base16-railscasts
 set guifont=Fira\ Mono\ 10
 
 autocmd FileType sh,python,markdown setlocal expandtab autoindent

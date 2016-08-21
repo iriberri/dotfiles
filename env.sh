@@ -1,5 +1,4 @@
 export TMP=/tmp
-export TERM=xterm-256color
 export PATH="$HOME/.dotfiles/bin:$PATH"
 
 alias ls='ls --color -Flh'
