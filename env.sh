@@ -36,8 +36,10 @@ if command_exists most; then
     alias less='most'
 fi
 
-if command_exists fzf; then
+fzf_path="$HOME/.dotfiles/.vim/plugged/fzf"
+if [ -d "$fzf_path" ]; then
     export FZF_TMUX=0
-    [[ $- == *i* ]] && source "$HOME/.dotfiles/fzf/completion.bash" 2> /dev/null
-    source "$HOME/.dotfiles/fzf/key-bindings.bash"
+    export PATH="$fzf_path/bin:$PATH"
+    [[ $- == *i* ]] && source "$fzf_path/shell/completion.bash" 2> /dev/null
+    source "$fzf_path/shell/key-bindings.bash"
 fi

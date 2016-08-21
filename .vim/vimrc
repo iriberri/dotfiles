@@ -3,6 +3,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 
+Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
@@ -16,6 +17,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-lua-ftplugin'
 call plug#end()
 
+" default options
 set guioptions=gmtr
 set number
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,bytval=0x%B,%n%Y%)\%P
@@ -23,18 +25,52 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.DS_Store,*.db
 set nobackup
 set noswapfile
 
-map ,v :sp ~/.vim/vimrc<cr> " edit my .vimrc file in a split
-map ,e :e ~/.vim/vimrc<cr>      " edit my .vimrc file
-map ,u :source ~/.vim/vimrc<cr> " update the system settings from my vimrc file
-
+" vimrc editing
+map ,e :e ~/.vim/vimrc<cr>
+map ,u :source ~/.vim/vimrc<cr>
 nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" Colors
+set t_Co=256
+set background=dark
+if has('nvim')
+  set termguicolors
+end
+colorscheme base16-railscasts
+set guifont=Fira\ Mono\ 10
+
+" Indentation
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+autocmd FileType sh,python,markdown setlocal expandtab autoindent
+autocmd FileType html,ruby,javascript,coffee,lua,vim setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2
+
+" Search
+nnoremap <Leader>g :Ggrep!<Space>
+autocmd QuickFixCmdPost *grep* cwindow
+
+" FZF integration
+if has('gui_running')
+  function! s:fzf_launch_xterm()
+    let fontpat = '^\(.*\) \([1-9][0-9]*\)$'
+    let fontname = substitute(&guifont, fontpat, '\1', '')
+    let fontsize = substitute(&guifont, fontpat, '\2', '')
+
+    let fmt = 'xterm -T "[fzf]" -bg "\%s" -fg "\%s" -fa "%s" -fs %d -geometry %dx%d+%d+%d -e bash -ic %%s'
+    return printf(fmt,
+          \ synIDattr(hlID("Normal"), "bg"), synIDattr(hlID("Normal"), "fg"),
+          \ fontname, fontsize, &columns, &lines/2, getwinposx(), getwinposy())
+  endfunction
+  let g:Fzf_launcher = function('s:fzf_launch_xterm')
+endif
 
 nnoremap <Leader>t :GFiles<cr>
 nnoremap <Leader>e :Buffers<cr>
-"let g:fzf_launcher = 'xterm -e bash -ic %s'
 
+" vim-go
 let g:go_def_mapping_enabled = 1
-
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>gi <Plug>(go-info)
@@ -42,20 +78,3 @@ au FileType go nmap <Leader>gr <Plug>(go-rename)
 au FileType go nmap <Leader>gg <Plug>(go-def)
 au FileType go nnoremap <Leader>y :GoDecls<cr>
 
-set t_Co=256
-set background=dark
-if has('nvim')
-	set termguicolors
-end
-colorscheme base16-railscasts
-set guifont=Fira\ Mono\ 10
-
-autocmd FileType sh,python,markdown setlocal expandtab autoindent
-autocmd FileType html,ruby,javascript,coffee,lua setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2
-
-nnoremap <Leader>g :Ggrep!<Space>
-autocmd QuickFixCmdPost *grep* cwindow
-
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
