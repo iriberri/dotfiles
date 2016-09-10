@@ -37,3 +37,4 @@ symlink .fonts
 
 # Vim
 symlink .vim
+symlink .spacemacs

@@ -36,6 +36,10 @@ if command_exists most; then
     alias less='most'
 fi
 
+if command_exists nvim; then
+    alias vim='nvim'
+fi
+
 fzf_path="$HOME/.dotfiles/.vim/plugged/fzf"
 if [ -d "$fzf_path" ]; then
     export FZF_TMUX=0
