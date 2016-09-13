@@ -47,10 +47,6 @@ set softtabstop=4
 autocmd FileType sh,python,markdown setlocal expandtab autoindent
 autocmd FileType html,ruby,javascript,coffee,lua,vim setlocal expandtab autoindent tabstop=2 shiftwidth=2 softtabstop=2
 
-" Search
-nnoremap <Leader>g :Ggrep!<Space>
-autocmd QuickFixCmdPost *grep* cwindow
-
 " FZF integration
 if has('gui_running')
   function! s:fzf_launch_xterm()
@@ -68,6 +64,7 @@ endif
 
 nnoremap <Leader>t :GFiles<cr>
 nnoremap <Leader>e :Buffers<cr>
+nnoremap <Leader>a :Ag<space>
 
 " vim-go
 let g:go_def_mapping_enabled = 1
