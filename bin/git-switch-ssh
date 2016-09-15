@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'uri'
+
+remotes = {}
+`git remote -v`.each_line do |line|
+  name, url, t = line.split
+  remotes[name] = url if t == '(fetch)'
+end
+
+remotes.each do |name, url|
+  url = URI.parse(url)
+  next unless url.host == 'github.com'
+  `git remote set-url #{name} git@github.com:#{url.path[1..-1]}.git`
+end
