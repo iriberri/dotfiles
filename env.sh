@@ -22,13 +22,17 @@ if [ -d $HOME/.nodenv/ ]; then
 	eval "$(nodenv init -)"
 fi
 
-if [ -d $PREFIX/go/ ]; then
-    export GOPATH="$HOME/src/gopath"
-    export PATH="$GOPATH/bin:$PREFIX/go/bin:$PATH"
-fi
-
 if [ -n "$DISPLAY" ]; then
     xset -b
+fi
+
+if [ -d $PREFIX/go/ ]; then
+    export PATH="$PREFIX/go/bin:$PATH"
+fi
+
+if command_exists go; then
+    export GOPATH="$HOME/src/gopath"
+    export PATH="$GOPATH/bin:$PATH"
 fi
 
 if command_exists most; then
@@ -38,6 +42,10 @@ fi
 
 if command_exists nvim; then
     alias vim='nvim'
+fi
+
+if command_exists keychain; then
+    eval `keychain -q --eval --agents ssh id_rsa`
 fi
 
 fzf_path="$HOME/.dotfiles/.vim/plugged/fzf"

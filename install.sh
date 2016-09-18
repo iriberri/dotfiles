@@ -38,3 +38,4 @@ symlink .fonts
 # Vim
 symlink .vim
 symlink .spacemacs
+ln -sf ~/.vim ~/.config/nvim

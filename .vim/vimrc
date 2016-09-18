@@ -33,9 +33,7 @@ nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
 " Colors
 set t_Co=256
 set background=dark
-if has('nvim')
-  set termguicolors
-end
+set termguicolors
 colorscheme base16-railscasts
 set guifont=Fira\ Mono\ 10
 
