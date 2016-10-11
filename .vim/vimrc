@@ -2,6 +2,7 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -9,6 +10,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'ciaranm/detectindent'
 
+Plug 'rodjek/vim-puppet'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
@@ -18,12 +20,13 @@ Plug 'xolox/vim-lua-ftplugin'
 call plug#end()
 
 " default options
-set guioptions=gmtr
+set guioptions=rc
 set number
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,bytval=0x%B,%n%Y%)\%P
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.DS_Store,*.db
 set nobackup
 set noswapfile
+let g:loaded_matchparen=1
 
 " vimrc editing
 map ,e :e ~/.vim/vimrc<cr>
@@ -34,7 +37,8 @@ nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
 set t_Co=256
 set background=dark
 set termguicolors
-colorscheme base16-railscasts
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+colorscheme gruvbox
 set guifont=Fira\ Mono\ 10
 
 " Indentation
