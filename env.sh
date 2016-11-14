@@ -9,7 +9,7 @@ command_exists () {
     type "$1" &> /dev/null ;
 }
 
-PREFIX="${PREFIX:-/usr/local}"
+PREFIX="${PREFIX:-/usr}"
 
 if [ -d $PREFIX/share/chruby/ ]; then
 	source $PREFIX/share/chruby/chruby.sh
@@ -52,6 +52,7 @@ fzf_path="$HOME/.dotfiles/.vim/plugged/fzf"
 if [ -d "$fzf_path" ]; then
     export FZF_TMUX=0
     export PATH="$fzf_path/bin:$PATH"
-    [[ $- == *i* ]] && source "$fzf_path/shell/completion.bash" 2> /dev/null
-    source "$fzf_path/shell/key-bindings.bash"
+    sh="$(basename $SHELL)"
+    [[ $- == *i* ]] && source "$fzf_path/shell/completion.$sh" 2> /dev/null
+    source "$fzf_path/shell/key-bindings.$sh"
 fi

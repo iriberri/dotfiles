@@ -4,22 +4,6 @@
 # Colors
 
 autoload -U colors && colors
-
-# The variables are wrapped in %{%}. This should be the case for every
-# variable that does not contain space.
-for COLOR in RED GREEN YELLOW BLUE MAGENTA CYAN BLACK WHITE; do
-  eval PR_$COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
-  eval PR_BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
-done
-
-eval RESET='$reset_color'
-export PR_RED PR_GREEN PR_YELLOW PR_BLUE PR_WHITE PR_BLACK
-export PR_BOLD_RED PR_BOLD_GREEN PR_BOLD_YELLOW PR_BOLD_BLUE 
-export PR_BOLD_WHITE PR_BOLD_BLACK
-
-# Clear LSCOLORS
-unset LSCOLORS
-
 export CLICOLOR=1
 export LSCOLORS=exfxcxdxbxegedabagacad
 
@@ -71,71 +55,14 @@ setopt multios # perform implicit tees or cats when multiple redirections are at
 
 ################################################
 # Prompt
+fpath=( "$HOME/.dotfiles/zfunctions" $fpath )
 
-# Modify the colors and symbols in these variables as desired.
-GIT_PROMPT_PREFIX="%{$fg[green]%} [%{$reset_color%}"
-GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
-GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}⚡︎%{$reset_color%}"
-GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}u%{$reset_color%}"
-GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}d%{$reset_color%}"
-GIT_PROMPT_STAGED="%{$fg_bold[green]%}s%{$reset_color%}"
+autoload -U promptinit; promptinit
 
-# Show Git branch/tag, or name-rev if on detached head
-function parse_git_branch() {
-  (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
-}
-
-# Show different symbols as appropriate for various Git repository states
-function parse_git_state() {
-  # Compose this value via multiple conditional appends.
-  local GIT_STATE=""
-  local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
-
-  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
-  fi
-
-  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
-  fi
-
-  if ! git diff --quiet 2> /dev/null; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
-  fi
-
-  if ! git diff --cached --quiet 2> /dev/null; then
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
-  fi
-
-  if [[ -n $GIT_STATE ]]; then
-    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
-  fi
-}
-
-# If inside a Git repository, print its branch and state
-function git_prompt_info() {
-  local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo " %{$fg[blue]%}${git_where#(refs/heads/|tags/)}%{$reset_color%}$(parse_git_state)"
-}
-
-function current_pwd {
-  echo $(pwd | sed -e "s,^$HOME,~,")
-}
-
-function return_code {
-  echo "%(?..%{$fg[red]%}%?%{$reset_color%})"
-}
-
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-    RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $(return_code) [%D{%L:%M:%S %p}]"
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-PROMPT='${PR_BOLD_RED}$(current_pwd)%{$reset_color%}$(git_prompt_info) ${PR_BOLD_YELLOW}$%{$reset_color%} '
+# optionally define some options
+PURE_CMD_MAX_EXEC_TIME=10
+PURE_PROMPT_SYMBOL="\$"
+prompt pure
 
 ################################################
 # Completion
@@ -204,15 +131,4 @@ HISTSIZE=10000
 SAVEHIST=9000
 HISTFILE=~/.zsh_history
 
-# better history management, using partial term and arrow keys
-# https://coderwall.com/p/jpj_6q
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
-
-
-bindkey -v
 export KEYTIMEOUT=1
