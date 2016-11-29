@@ -14,7 +14,7 @@ PREFIX="${PREFIX:-/usr}"
 if [ -d $PREFIX/share/chruby/ ]; then
 	source $PREFIX/share/chruby/chruby.sh
 	source $PREFIX/share/chruby/auto.sh
-	chruby 2.3.1
+	chruby 2.3.3
 fi
 
 if [ -d $HOME/.nodenv/ ]; then

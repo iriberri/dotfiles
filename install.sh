@@ -28,7 +28,6 @@ github-raw() {
 # Shells
 symlink .bashrc
 symlink .zshrc
-symlink .zprofile
 
 # Tools
 symlink .gitconfig

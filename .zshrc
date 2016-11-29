@@ -132,3 +132,4 @@ SAVEHIST=9000
 HISTFILE=~/.zsh_history
 
 export KEYTIMEOUT=1
+source ~/.dotfiles/env.sh
