@@ -41,6 +41,8 @@
 	grab = !git-grab
 	cb = !git-cut-branch
 	g  = grep --break --heading --line-number
+	fco = fzf-checkout
+	fa = fzf-add
 
 [user]
 	email = tanoku@gmail.com
