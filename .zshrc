@@ -36,11 +36,9 @@ setopt share_history # imports new commands and appends typed commands to histor
 
 # ===== Completion 
 setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word    
-setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
 setopt auto_name_dirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
 setopt complete_in_word # Allow completion from within a word/phrase
-
-unsetopt menu_complete # do not autoselect the first completion entry
+setopt menu_complete
 
 # ===== Correction
 unsetopt correct_all # spelling correction for arguments
@@ -95,9 +93,9 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 # list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+zstyle ':completion:*::::' completer _expand _complete _ignored
 
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+zstyle ':completion:*' menu select=1 _complete _ignored
 
 # insert all expansions for expand completer
 # zstyle ':completion:*:expand:*' tag-order all-expansions

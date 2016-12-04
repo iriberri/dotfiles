@@ -36,5 +36,7 @@ symlink .fonts
 
 # Vim
 symlink .vim
-symlink .spacemacs
-ln -sf ~/.vim ~/.config/nvim
+
+if [ ! -L "$HOME/.config/nvim" ]; then
+    ln -sf $DOTFILES/.vim $HOME/.config/nvim
+fi
