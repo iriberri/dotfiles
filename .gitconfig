@@ -1,5 +1,5 @@
 [core]
-	editor = nvim
+	editor = vim
 	whitespace = trailing-space,space-before-tab
 
 [apply]
@@ -45,11 +45,8 @@
 	fa = fzf-add
 
 [user]
-	email = tanoku@gmail.com
-	name = Vicent Marti
-
-[credential]
-	helper = cache --timeout=9999999
+	email = iriberrig@gmail.com
+	name = Carla Iriberri
 
 [push]
 	default = simple

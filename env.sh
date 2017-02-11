@@ -1,15 +1,14 @@
-export TMP=/tmp
-export PATH="$HOME/.dotfiles/bin:$PATH"
+PREFIX="${PREFIX:-/usr/local}"
 
-alias ls='ls --color -Flh'
+export TMP=/tmp
+export PATH="$HOME/.dotfiles/bin:$PREFIX/bin:$PATH"
+
 alias make='make -j4'
 alias gvim='gvim --sync'
 
 command_exists () {
     type "$1" &> /dev/null ;
 }
-
-PREFIX="${PREFIX:-/usr}"
 
 if [ -d $PREFIX/share/chruby/ ]; then
 	source $PREFIX/share/chruby/chruby.sh
@@ -22,10 +21,6 @@ if [ -d $HOME/.nodenv/ ]; then
 	eval "$(nodenv init -)"
 fi
 
-if [ -n "$DISPLAY" ]; then
-    xset -b
-fi
-
 if [ -d $PREFIX/go/ ]; then
     export PATH="$PREFIX/go/bin:$PATH"
 fi
@@ -33,19 +28,6 @@ fi
 if command_exists go; then
     export GOPATH="$HOME/src/gopath"
     export PATH="$GOPATH/bin:$PATH"
-fi
-
-if command_exists most; then
-    export MANPAGER="$(which most)"
-    alias less='most'
-fi
-
-if command_exists nvim; then
-    alias vim='nvim'
-fi
-
-if command_exists keychain; then
-    eval `keychain -q --eval --agents ssh id_rsa`
 fi
 
 fzf_path="$HOME/.dotfiles/.vim/plugged/fzf"
