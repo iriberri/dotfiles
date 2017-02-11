@@ -36,7 +36,6 @@ nnoremap ,r :%s/\<<C-r><C-w>\>//g<Left><Left>
 " Colors
 set t_Co=256
 set background=dark
-set termguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 colorscheme gruvbox
 set guifont=Fira\ Mono\ 10
