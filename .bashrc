@@ -82,3 +82,6 @@ fi
 
 # load our environment
 source $HOME/.dotfiles/env.sh
+
+# added by travis gem
+[ -f /Users/iriberri/.travis/travis.sh ] && source /Users/iriberri/.travis/travis.sh
