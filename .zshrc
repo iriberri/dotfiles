@@ -132,5 +132,4 @@ HISTFILE=~/.zsh_history
 export KEYTIMEOUT=1
 source ~/.dotfiles/env.sh
 alias rake='noglob rake'
-# added by travis gem
-[ -f /Users/iriberri/.travis/travis.sh ] && source /Users/iriberri/.travis/travis.sh
+
