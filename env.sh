@@ -5,7 +5,6 @@ export PATH="$HOME/.dotfiles/bin:$PREFIX/bin:$PATH"
 
 alias make='make -j4'
 alias gvim='gvim --sync'
-alias trvs='/Users/iriberri/src/travisci/trvs/bin/trvs'
 
 
 command_exists () {
